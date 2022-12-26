@@ -1,6 +1,6 @@
 {
     "name": "model/events",
-    "description": "Based on league/events, simple wrapper to make events global",
+    "description": "Events dispatcher",
     "type": "library",
     "authors": [
         {
@@ -12,6 +12,6 @@
         "psr-4": {"Model\\Events\\": "src/"}
     },
     "require": {
-        "league/event": "^3.0"
+        "psr/event-dispatcher": "^1.0"
     }
 }

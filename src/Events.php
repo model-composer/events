@@ -1,26 +1,23 @@
 <?php namespace Model\Events;
 
-use League\Event\EventDispatcher;
-use League\Event\ListenerPriority;
-
 class Events
 {
-	private static EventDispatcher $dispatcher;
+	private static array $dispatchers;
 
-	private static function getDispatcher(): EventDispatcher
+	private static function getDispatcher(string $dispatcher = ''): Dispatcher
 	{
-		if (!isset(self::$dispatcher))
-			self::$dispatcher = new EventDispatcher();
-		return self::$dispatcher;
+		if (!isset(self::$dispatchers[$dispatcher]))
+			self::$dispatchers[$dispatcher] = new Dispatcher();
+		return self::$dispatchers[$dispatcher];
 	}
 
-	public static function dispatch(object $event): object
+	public static function dispatch(object $event, string $dispatcher = ''): object
 	{
-		return self::getDispatcher()->dispatch($event);
+		return self::getDispatcher($dispatcher)->dispatch($event);
 	}
 
-	public static function subscribeTo(string $event, callable $listener, int $priority = ListenerPriority::NORMAL): void
+	public static function subscribeTo(string $event, callable $listener, string $dispatcher = ''): void
 	{
-		self::getDispatcher()->subscribeTo($event, $listener, $priority);
+		self::getDispatcher($dispatcher)->subscribeTo($event, $listener);
 	}
 }
