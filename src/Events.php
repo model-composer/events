@@ -2,7 +2,7 @@
 
 class Events
 {
-	private static array $dispatchers;
+	private static array $dispatchers = [];
 
 	private static function getDispatcher(string $dispatcher = ''): Dispatcher
 	{
@@ -11,7 +11,7 @@ class Events
 		return self::$dispatchers[$dispatcher];
 	}
 
-	public static function dispatch(object $event, string $dispatcher = ''): object
+	public static function dispatch(AbstractEvent $event, string $dispatcher = ''): AbstractEvent
 	{
 		return self::getDispatcher($dispatcher)->dispatch($event);
 	}
