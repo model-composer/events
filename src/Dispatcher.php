@@ -34,7 +34,7 @@ class Dispatcher implements EventDispatcherInterface, ListenerProviderInterface
 		if (!is_subclass_of($event, AbstractEvent::class))
 			throw new \Exception('Bad event type');
 
-		$listeners = $this->listeners[$event->getEventName()] ?? [];
+		$listeners = $this->listeners[get_class($event)] ?? [];
 		if (isset($this->listeners['*']))
 			$listeners = array_merge($listeners, $this->listeners['*']);
 		return $listeners;
